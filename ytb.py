@@ -1,13 +1,21 @@
 import os
 from googleapiclient.discovery import build
 # 设置API密钥
-api_key = os.environ['YOUTOBE']
+api_key ='AIzaSyDki3M1XufmBDy8Vq-87VCNpo6OUCKk91M' 
+# //os.environ['YOUTOBE']
 # 创建YouTube API服务
 youtube = build('youtube', 'v3', developerKey=api_key)
 
 
+
+# 测试示例
+url = "https://www.youtube.com/watch?v=VIDEO_ID"
+
+
 def get_video_info(video_url):
   try:
+    if 'youtube.com' not in video_url:
+        return 'video url error'
     # 从视频链接中提取视频ID
     video_id = video_url.split('=')[1]
     # 你的 API 调用代码
@@ -27,3 +35,5 @@ def get_video_info(video_url):
 
   except Exception as e:
     print(f"An error occurred: {e}")
+    return ''
+

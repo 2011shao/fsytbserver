@@ -7,10 +7,10 @@ app = Flask('app')
 @app.route('/')
 def hello_world():
   print('你好')
-  img_url = request.args.get('video_url')
-  # video_dic = get_video_info(img_url)
-  print(img_url)
-  return '对对对'
+  video_url = request.args.get('video_url')
+  video_dic = get_video_info(video_url)
+  print(video_url)
+  return video_dic
   # render_template(
   #     'index.html',
   #     user_id=request.headers['X-Replit-User-Id'],
