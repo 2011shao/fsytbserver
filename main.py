@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from ytb import get_video_info
 
 app = Flask('app')
@@ -10,7 +10,7 @@ def hello_world():
   video_url = request.args.get('video_url')
   video_dic = get_video_info(video_url)
   print(video_url)
-  return video_dic
+  return jsonify(video_dic)
   # render_template(
   #     'index.html',
   #     user_id=request.headers['X-Replit-User-Id'],
