@@ -7,15 +7,19 @@ youtube = build('youtube', 'v3', developerKey=api_key)
 url = "https://www.youtube.com/watch?v=VIDEO_ID"
 
 def extract_video_id(video_url):
-    # 使用正则表达式从视频链接中提取视频ID
-    video_id_match = re.search(r'[?&]v=([a-zA-Z0-9_-]+)', video_url)
-    if video_id_match:
-        return video_id_match.group(1)
-
-    # 如果是短链接，使用 /shorts/ 后的部分作为视频ID
+   # 尝试从短链接中提取视频ID
     shorts_match = re.search(r'/shorts/([a-zA-Z0-9_-]+)', video_url)
     if shorts_match:
         return shorts_match.group(1)
+    # 尝试从标准链接中提取视频ID
+    video_id_match = re.search(r'(?:youtu\.be/|v=)([^&\n?#]+)', video_url)
+    if video_id_match:
+        return video_id_match.group(1)
+
+    # 尝试从 https://www.youtube.com/watch?v=VIDEO_ID 格式的链接中提取视频ID
+    watch_url_match = re.search(r'[?&]v=([^&\n?#]+)', video_url)
+    if watch_url_match:
+        return watch_url_match.group(1)
 
     return None
 def get_video_info(video_url, is_commentl):
